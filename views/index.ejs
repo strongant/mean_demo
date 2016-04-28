@@ -3,40 +3,59 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
+    <style media="screen">
+      ul li{
+
+         line-height:40px;
+      }
+    </style>
+
   </head>
   <body>
     <ng-view></ng-view>
     <!-- Libraries -->
+    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.js" charset="utf-8"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <!-- Template -->
    <script type="text/ng-template" id="/todos.html">
-     Search: <input type="text" ng-model="search.name">
+     <label for="txtSearch">Name</label>
+     <input type="text"  class="form-control" id="txtSearch"  placeholder="请输入搜索条件" ng-model="search.name">
      <ul>
         <li ng-repeat="todo in todos | filter: search">
-        <input type="checkbox" ng-model="todo.completed" ng-change="update($index)">
-        <a ng-show="!editing[$index]" href="#/{{todo._id}}">{{todo.name}}</a>
-        <button ng-show="!editing[$index]" ng-click="edit($index)">edit</button>
-        <button ng-show="!editing[$index]" ng-click="remove($index)">remove</button>
-        <input ng-show="editing[$index]" type="text" ng-model="todo.name">
-        <button ng-show="editing[$index]" ng-click="update($index)">Update</button>
-
-        <button ng-show="editing[$index]" ng-click="cancel($index)">Cancel</button>
+          <input  type="checkbox" ng-model="todo.completed" ng-change="update($index)">
+          <a ng-show="!editing[$index]" href="#/{{todo._id}}">{{todo.name}}</a>
+          <button ng-show="!editing[$index]" ng-click="edit($index)" class="btn btn-default">edit</button>
+          <button ng-show="!editing[$index]" ng-click="remove($index)" class="btn btn-danger">remove</button>
+          <input ng-show="editing[$index]" class="form-control" type="text" ng-model="todo.name">
+          <button ng-show="editing[$index]" ng-click="update($index)" class="btn btn-primary">Update</button>
+          <button ng-show="editing[$index]" ng-click="cancel($index)" class="btn btn-warning">Cancel</button>
        </li>
      </ul>
-     New Task <input type="text" ng-model="newTodo" />
-     <button type="button" ng-click="save()" name="button">Create</button>
+     <div class="form-inline" >
+     New Task <input type="text" class="form-control"  ng-model="newTodo" />
+     <button type="button" ng-click="save()" class="btn btn-primary" name="button">Create</button>
+     </div>
+
    </script>
 
    <script type="text/ng-template" id="/todoDetails.html">
      <h1>{{ todo.name }}</h1>
-     completed: <input type="checkbox" ng-model="todo.completed"><br>
-     note: <textarea ng-model="todo.note"></textarea><br><br>
-     <button ng-click="update()">update</button>
-     <button ng-click="remove()">remove</button>
-     <a href="/">Cancel</a>
+     completed:
+     <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="todo.completed"><br>
+      </label>
+     </div>
+
+     note: <textarea class="form-control" rows="3"  ng-model="todo.note"></textarea>
+     <button ng-click="update()" class="btn default">update</button>
+     <button ng-click="remove()" class="btn danger">remove</button>
+     <a href="/" role="button" class="btn warning" role="button">Cancel</a>
    </script>
 
 
