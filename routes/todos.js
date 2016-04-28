@@ -32,6 +32,7 @@ router.get('/:id', function(req, res, next) {
 /* PUT /todos/:id */
 router.put('/:id', function(req, res, next) {
   console.log(req.body);
+  delete req.body._id;
   Todo.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) {
       console.error('errr:' + err);
