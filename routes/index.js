@@ -12,9 +12,31 @@ const logger = require('../models/Logger').logger('index');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {
-    title: 'ngTodoApp'
+  if (req.cookies.remember) {
+    res.send({
+      "code": "200",
+      "message": "登陆成功，cookie没有过期"
+    });
+  } else {
+    res.send('<form method="post"><p>Check to <label>' +
+      '<input type="checkbox" name="remember"/> remember me</label> ' +
+      '<input type="submit" value="Submit"/>.</p></form>');
+  }
+});
+
+
+router.get('/forget', function(req, res) {
+  res.clearCookie('remember');
+  res.redirect('back');
+});
+
+router.post('/', function(req, res) {
+  //var minute = req.body.COOKIE_EXPIRE_SEC;
+  var minute = 10 * 1000;
+  if (req.body.remember) res.cookie('remember', 1, {
+    maxAge: minute
   });
+  res.redirect('back');
 });
 
 // router.post('/pf/openAPI/login', function(req, res, next) {
