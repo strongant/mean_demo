@@ -4,9 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var jwt = require('jsonwebtoken');
+var tokenManage = require('./models/Token');
+var settings = require('./config/settings');
 var routes = require('./routes/index');
 var todos = require('./routes/todos');
+
+
 
 //引入mongoose的支持
 var mongoose = require('mongoose');
