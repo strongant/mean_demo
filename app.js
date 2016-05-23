@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var fs = require('fs');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -23,10 +24,23 @@ mongoose.connect('mongodb://localhost/todoApp', function(err) {
 });
 
 var app = express();
+//调整express默认允许的大小
+app.use(bodyParser.json({
+  limit: '1024mb'
+}));
+app.use(bodyParser.urlencoded({
+  limit: '1024mb',
+  extended: true
+}));
+var logger = require('morgan');
+var configFile = path.join(__dirname, 'logs') +
+  "/logfile.log";
 
+app.use(logger('dev'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine',
+  'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -36,7 +50,8 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser("this is my cookie"));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(
+  path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/todos', todos);

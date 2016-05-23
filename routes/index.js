@@ -18,9 +18,10 @@ router.get('/', function(req, res, next) {
       "message": "登陆成功，cookie没有过期"
     });
   } else {
-    res.send('<form method="post"><p>Check to <label>' +
-      '<input type="checkbox" name="remember"/> remember me</label> ' +
-      '<input type="submit" value="Submit"/>.</p></form>');
+    res.send({
+      "code": "300",
+      "message": "cookie失效，请重新登陆"
+    });
   }
 });
 

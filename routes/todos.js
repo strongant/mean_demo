@@ -14,14 +14,18 @@ router.get('/', function(req, res, next) {
 
 /* POST todos*/
 router.post('/', function(req, res, next) {
-
-  Todo.create(req.body, function(err, post) {
-    if (err) {
-      console.error('errr:' + err);
-      return next(err);
-    }
-    res.json(post);
+  console.log('req.body:');
+  console.log(req.body);
+  return res.json({
+    'status': "200"
   });
+  // Todo.create(req.body, function(err, post) {
+  //   if (err) {
+  //     console.error('errr:' + err);
+  //     return next(err);
+  //   }
+  //   res.json(post);
+  // });
 });
 
 /* GET /todos/:id */
